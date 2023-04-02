@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import NewTaskForm from "./componenents/newTaskForm";
 import Footer from "./componenents/footer.jsx";
 import TaskList from "./componenents/taskList.jsx";
@@ -25,6 +25,8 @@ function App() {
     },
   ]);
 
+  const [filter, setFilter] = useState(null);
+
   const addTask = (taskDescription) => {
     const task = {
       id: crypto.randomUUID(),
@@ -38,10 +40,11 @@ function App() {
 
   const updateTask = (task) => {
     const index = tasks.findIndex((t) => t.id === task.id);
-    if (index) {
+
+    if (index !== -1) {
       const tmpArr = tasks.slice();
       tmpArr.splice(index, 1, task);
-      setTasks([...tmpArr]);
+      setTasks(tmpArr);
     }
   };
 
@@ -49,13 +52,33 @@ function App() {
     setTasks(tasks.filter((t) => t.id !== taskId));
   };
 
+  const removeCompleted = () => {
+    setTasks(tasks.filter((t) => !t.completed));
+  };
+
+  const left = (() => tasks.filter((t) => t.completed === false).length)();
+
+  const filteredTasks = (() =>
+    !filter
+      ? tasks
+      : tasks.filter((t) => t.completed === (filter === "completed")))();
+
   return (
     <section className="todoapp">
       <NewTaskForm create={addTask} />
       <section className="main">
-        <TaskList tasks={tasks} remove={removeTask} update={updateTask} />
+        <TaskList
+          tasks={filteredTasks}
+          remove={removeTask}
+          update={updateTask}
+        />
       </section>
-      <Footer />
+      <Footer
+        left={left}
+        filter={filter}
+        setFilter={setFilter}
+        removeCompleted={removeCompleted}
+      />
     </section>
   );
 }

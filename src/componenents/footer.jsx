@@ -1,23 +1,40 @@
 import React from "react";
+import Button from "./UI/button.jsx";
 
-const Footer = () => {
+const Footer = ({ left, filter, setFilter, removeCompleted }) => {
   return (
     <footer className="footer">
-      <span className="todo-count">1 items left</span>
+      <span className="todo-count">{left} items left</span>
       <ul className="filters">
         <li>
-          <button className="selected">All</button>
+          <Button
+            className={!filter ? "selected" : ""}
+            onClick={() => setFilter(null)}
+          >
+            All
+          </Button>
         </li>
         <li>
-          <button>Active</button>
+          <Button
+            className={filter && filter === "active" ? "selected" : ""}
+            onClick={() => setFilter("active")}
+          >
+            Active
+          </Button>
         </li>
         <li>
-          <button>Completed</button>
+          <Button
+            className={filter === "completed" ? "selected" : ""}
+            onClick={() => setFilter("completed")}
+          >
+            Completed
+          </Button>
         </li>
       </ul>
-      <button className="clear-completed">Clear completed</button>
+      <Button className="clear-completed" onClick={removeCompleted}>
+        Clear completed
+      </Button>
     </footer>
   );
 };
-
 export default Footer;

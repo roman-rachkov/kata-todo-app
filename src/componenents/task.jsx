@@ -1,14 +1,20 @@
-import React, { useState, watch } from "react";
+import React, { useState } from "react";
 import ToggleCheckbox from "./UI/ToggleCheckbox.jsx";
 import Input from "./UI/input.jsx";
+import IconButton from "./UI/icon-button.jsx";
+import { formatDistanceToNow } from "date-fns";
 
 const Task = ({ task, update, remove }) => {
   const [editing, setEditing] = useState(false);
-  const [currentTask, setTask] = useState(task);
+  const [taskDescription, setDescription] = useState(task.description);
 
   const updateTask = () => {
     setEditing(false);
-    update(currentTask);
+    update({ ...task, description: taskDescription });
+  };
+
+  const handleCompleted = (event) => {
+    update({ ...task, completed: event.target.checked });
   };
 
   const classes = [task.completed ? "completed" : "", editing ? "editing" : ""];
@@ -16,28 +22,22 @@ const Task = ({ task, update, remove }) => {
   return (
     <li className={classes.join(" ")}>
       <div className="view">
-        <ToggleCheckbox
-          checked={task.completed}
-          onChange={(event) => {
-            setTask({
-              ...currentTask,
-              completed: event.target.checked,
-            });
-            updateTask();
-          }}
-        />
+        <ToggleCheckbox checked={task.completed} onChange={handleCompleted} />
         <label>
           <span className="description">{task.description}</span>
-          <span className="created">created 5 minutes ago</span>
+          <span className="created">
+            created{" "}
+            {formatDistanceToNow(task.created, { includeSeconds: true })}
+          </span>
         </label>
-        <button
-          className="icon icon-edit"
+        <IconButton
+          icon="icon-edit"
           onClick={() => setEditing(true)}
-        ></button>
-        <button
-          className="icon icon-destroy"
+        ></IconButton>
+        <IconButton
+          icon="icon-destroy"
           onClick={() => remove(task.id)}
-        ></button>
+        ></IconButton>
       </div>
       {editing ? (
         <form action="#" method="POST" onSubmit={updateTask}>
@@ -45,10 +45,8 @@ const Task = ({ task, update, remove }) => {
             type="text"
             className="edit"
             placeholder="Editing task"
-            value={currentTask.description}
-            onChange={(event) =>
-              setTask({ ...currentTask, description: event.target.value })
-            }
+            value={taskDescription}
+            onChange={(event) => setDescription(event.target.value)}
           />
         </form>
       ) : (
