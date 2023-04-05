@@ -5,7 +5,6 @@ const Input = (props) => {
     <input
       type={props.type ?? "text"}
       className={props.className ?? ""}
-      // value={props.value ?? ""}
       {...props}
     />
   );

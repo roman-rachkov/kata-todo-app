@@ -1,40 +1,50 @@
 import React from "react";
 import Button from "./UI/button.jsx";
+import TaskFilter from "./taskFilter.jsx";
+import PropTypes from "prop-types";
 
-const Footer = ({ left, filter, setFilter, removeCompleted }) => {
+const Footer = ({ left, filter, setFilterHandler, removeCompletedHandler }) => {
   return (
     <footer className="footer">
       <span className="todo-count">{left} items left</span>
       <ul className="filters">
-        <li>
-          <Button
-            className={!filter ? "selected" : ""}
-            onClick={() => setFilter(null)}
-          >
-            All
-          </Button>
-        </li>
-        <li>
-          <Button
-            className={filter && filter === "active" ? "selected" : ""}
-            onClick={() => setFilter("active")}
-          >
-            Active
-          </Button>
-        </li>
-        <li>
-          <Button
-            className={filter === "completed" ? "selected" : ""}
-            onClick={() => setFilter("completed")}
-          >
-            Completed
-          </Button>
-        </li>
+        <TaskFilter
+          changeFilterHandler={() => setFilterHandler(null)}
+          selected={!filter}
+        >
+          All
+        </TaskFilter>
+        <TaskFilter
+          selected={filter && filter === "active"}
+          changeFilterHandler={() => setFilterHandler("active")}
+        >
+          Active
+        </TaskFilter>
+        <TaskFilter
+          selected={filter && filter === "completed"}
+          changeFilterHandler={() => setFilterHandler("completed")}
+        >
+          Completed
+        </TaskFilter>
       </ul>
-      <Button className="clear-completed" onClick={removeCompleted}>
+      <Button className="clear-completed" onClick={removeCompletedHandler}>
         Clear completed
       </Button>
     </footer>
   );
+};
+
+Footer.propTypes = {
+  left: PropTypes.number,
+  filter: PropTypes.string,
+  setFilterHandler: PropTypes.func,
+  removeCompletedHandler: PropTypes.func,
+};
+
+Footer.defaultProps = {
+  left: 0,
+  filter: null,
+  setFilterHandler: {},
+  removeCompletedHandler: {},
 };
 export default Footer;

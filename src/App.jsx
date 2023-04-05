@@ -56,28 +56,34 @@ function App() {
     setTasks(tasks.filter((t) => !t.completed));
   };
 
-  const left = (() => tasks.filter((t) => t.completed === false).length)();
+  const left = useMemo(
+    () => tasks.filter((t) => t.completed === false).length,
+    [tasks]
+  );
 
-  const filteredTasks = (() =>
-    !filter
-      ? tasks
-      : tasks.filter((t) => t.completed === (filter === "completed")))();
+  const filteredTasks = useMemo(
+    () =>
+      !filter
+        ? tasks
+        : tasks.filter((t) => t.completed === (filter === "completed")),
+    [filter, tasks]
+  );
 
   return (
     <section className="todoapp">
-      <NewTaskForm create={addTask} />
+      <NewTaskForm handleCreateTask={addTask} />
       <section className="main">
         <TaskList
           tasks={filteredTasks}
-          remove={removeTask}
-          update={updateTask}
+          removeTaskHandler={removeTask}
+          updateTaskHandler={updateTask}
         />
       </section>
       <Footer
         left={left}
         filter={filter}
-        setFilter={setFilter}
-        removeCompleted={removeCompleted}
+        setFilterHandler={setFilter}
+        removeCompletedHandler={removeCompleted}
       />
     </section>
   );

@@ -1,51 +1,44 @@
 import React from "react";
 import Task from "./task.jsx";
+import PropTypes from "prop-types";
 
-const TaskList = ({ tasks, update, remove }) => {
+const TaskList = ({ tasks, updateTaskHandler, removeTaskHandler }) => {
   return (
     <ul className="todo-list">
       {tasks.map((task) => {
         return (
-          <Task key={task.id} task={task} update={update} remove={remove} />
+          <Task
+            key={task.id}
+            task={task}
+            updateTaskHandler={updateTaskHandler}
+            removeTaskHandler={removeTaskHandler}
+          />
         );
       })}
-
-      {/*<li className="completed">*/}
-      {/*  <div className="view">*/}
-      {/*    <input className="toggle" type="checkbox" />*/}
-      {/*    <label>*/}
-      {/*      <span className="description">Completed task</span>*/}
-      {/*      <span className="created">created 17 seconds ago</span>*/}
-      {/*    </label>*/}
-      {/*    <button className="icon icon-edit"></button>*/}
-      {/*    <button className="icon icon-destroy"></button>*/}
-      {/*  </div>*/}
-      {/*</li>*/}
-      {/*<li className="editing">*/}
-      {/*  <div className="view">*/}
-      {/*    <input className="toggle" type="checkbox" />*/}
-      {/*    <label>*/}
-      {/*      <span className="description">Editing task</span>*/}
-      {/*      <span className="created">created 5 minutes ago</span>*/}
-      {/*    </label>*/}
-      {/*    <button className="icon icon-edit"></button>*/}
-      {/*    <button className="icon icon-destroy"></button>*/}
-      {/*  </div>*/}
-      {/*  <input type="text" className="edit" value="Editing task" />*/}
-      {/*</li>*/}
-      {/*<li>*/}
-      {/*  <div className="view">*/}
-      {/*    <input className="toggle" type="checkbox" />*/}
-      {/*    <label>*/}
-      {/*      <span className="description">Active task</span>*/}
-      {/*      <span className="created">created 5 minutes ago</span>*/}
-      {/*    </label>*/}
-      {/*    <button className="icon icon-edit"></button>*/}
-      {/*    <button className="icon icon-destroy"></button>*/}
-      {/*  </div>*/}
-      {/*</li>*/}
     </ul>
   );
+};
+
+TaskList.propTypes = {
+  tasks: PropTypes.arrayOf(
+    PropTypes.objectOf(
+      (props, propName, componentName, location, propFullName) => {
+        if (!["id", "created", "completed", "description"].includes(propName)) {
+          return new Error(
+            `Invalid prop ${propFullName}  supplied to ${componentName}. Validation failed.`
+          );
+        }
+      }
+    )
+  ),
+  updateTaskHandler: PropTypes.func,
+  removeTaskHandler: PropTypes.func,
+};
+
+TaskList.defaultProps = {
+  tasks: {},
+  updateTaskHandler: {},
+  removeTaskHandler: {},
 };
 
 export default TaskList;

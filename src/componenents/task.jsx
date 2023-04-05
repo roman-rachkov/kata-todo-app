@@ -3,18 +3,19 @@ import ToggleCheckbox from "./UI/ToggleCheckbox.jsx";
 import Input from "./UI/input.jsx";
 import IconButton from "./UI/icon-button.jsx";
 import { formatDistanceToNow } from "date-fns";
+import PropTypes from "prop-types";
 
-const Task = ({ task, update, remove }) => {
+const Task = ({ task, updateTaskHandler, removeTaskHandler }) => {
   const [editing, setEditing] = useState(false);
   const [taskDescription, setDescription] = useState(task.description);
 
   const updateTask = () => {
     setEditing(false);
-    update({ ...task, description: taskDescription });
+    updateTaskHandler({ ...task, description: taskDescription });
   };
 
   const handleCompleted = (event) => {
-    update({ ...task, completed: event.target.checked });
+    updateTaskHandler({ ...task, completed: event.target.checked });
   };
 
   const classes = [task.completed ? "completed" : "", editing ? "editing" : ""];
@@ -36,7 +37,7 @@ const Task = ({ task, update, remove }) => {
         ></IconButton>
         <IconButton
           icon="icon-destroy"
-          onClick={() => remove(task.id)}
+          onClick={() => removeTaskHandler(task.id)}
         ></IconButton>
       </div>
       {editing ? (
@@ -54,6 +55,26 @@ const Task = ({ task, update, remove }) => {
       )}
     </li>
   );
+};
+
+Task.propTypes = {
+  task: PropTypes.objectOf(
+    (propValue, propName, componentName, location, propFullName) => {
+      if (!["id", "created", "completed", "description"].includes(propName)) {
+        return new Error(
+          `Invalid prop ${propFullName}  supplied to ${componentName}. Validation failed.`
+        );
+      }
+    }
+  ),
+  updateTaskHandler: {},
+  removeTaskHandler: {},
+};
+
+Task.defaultPrps = {
+  task: {},
+  updateTaskHandler: {},
+  removeTaskHandler: {},
 };
 
 export default Task;
