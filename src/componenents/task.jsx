@@ -58,15 +58,12 @@ const Task = ({ task, updateTaskHandler, removeTaskHandler }) => {
 };
 
 Task.propTypes = {
-  task: PropTypes.objectOf(
-    (propValue, propName, componentName, location, propFullName) => {
-      if (!["id", "created", "completed", "description"].includes(propName)) {
-        return new Error(
-          `Invalid prop ${propFullName}  supplied to ${componentName}. Validation failed.`
-        );
-      }
-    }
-  ),
+  task: PropTypes.shape({
+    id: PropTypes.string,
+    description: PropTypes.string,
+    completed: PropTypes.bool,
+    created: PropTypes.instanceOf(Date),
+  }),
   updateTaskHandler: PropTypes.func,
   removeTaskHandler: PropTypes.func,
 };
