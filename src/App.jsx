@@ -5,46 +5,33 @@ import TaskList from "./componenents/taskList.jsx";
 
 function App() {
   const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      completed: true,
-      created: Date.now(),
-      description: "Completed task",
-    },
-    {
-      id: 2,
-      completed: false,
-      created: Date.now(),
-      description: "Active task",
-    },
-    {
-      id: 3,
-      completed: false,
-      created: Date.now(),
-      description: "Active task",
-    },
+    createTask("Task 1"),
+    createTask("Task 2"),
+    createTask("Task 3"),
   ]);
 
   const [filter, setFilter] = useState(null);
 
-  const addTask = (taskDescription) => {
-    const task = {
+  function createTask(taskDescription) {
+    return {
       id: crypto.randomUUID(),
       completed: false,
       created: Date.now(),
       description: taskDescription,
     };
+  }
 
-    setTasks([...tasks, task]);
+  const addTask = (taskDescription) => {
+    setTasks([...tasks, createTask(taskDescription)]);
   };
 
   const updateTask = (task) => {
-    const index = tasks.findIndex((t) => t.id === task.id);
+    const copyArr = tasks.slice();
+    const index = copyArr.findIndex((t) => t.id === task.id);
 
     if (index !== -1) {
-      const tmpArr = tasks.slice();
-      tmpArr.splice(index, 1, task);
-      setTasks(tmpArr);
+      copyArr.splice(index, 1, task);
+      setTasks(copyArr);
     }
   };
 

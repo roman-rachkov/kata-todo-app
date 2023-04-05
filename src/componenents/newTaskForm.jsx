@@ -3,7 +3,7 @@ import Input from "./UI/input.jsx";
 import PropTypes from "prop-types";
 
 const NewTaskForm = ({ handleCreateTask }) => {
-  const [taskDescription, setTaskDescription] = useState(null);
+  const [taskDescription, setTaskDescription] = useState("");
 
   const createNewTaskHandler = (event) => {
     event.preventDefault();
@@ -11,6 +11,7 @@ const NewTaskForm = ({ handleCreateTask }) => {
       return;
     }
     handleCreateTask(taskDescription.trim());
+    setTaskDescription("");
   };
 
   return (
@@ -21,6 +22,7 @@ const NewTaskForm = ({ handleCreateTask }) => {
           className="new-todo"
           placeholder="What needs to be done?"
           autoFocus
+          value={taskDescription}
           onChange={(event) => setTaskDescription(event.target.value)}
           required
         />

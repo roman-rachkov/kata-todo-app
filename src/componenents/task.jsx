@@ -67,8 +67,8 @@ Task.propTypes = {
       }
     }
   ),
-  updateTaskHandler: {},
-  removeTaskHandler: {},
+  updateTaskHandler: PropTypes.func,
+  removeTaskHandler: PropTypes.func,
 };
 
 Task.defaultPrps = {
