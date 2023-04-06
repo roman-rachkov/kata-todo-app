@@ -5,7 +5,7 @@ import Task from './task.jsx'
 
 var a
 
-console.log(a)
+console.log(a, 1)
 
 const TaskList = ({ tasks, updateTaskHandler, removeTaskHandler }) => {
   return (
