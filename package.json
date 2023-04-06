@@ -37,7 +37,7 @@
     "vite-plugin-eslint": "^1.8.1"
   },
   "lint-staged": {
-    "src/**/*.{js,html,css}": "prettir --write",
+    "src/**/*.{js,html,css}": "prettier --write",
     "src/**/*.js": "eslint"
   }
 }
