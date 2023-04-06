@@ -5,6 +5,8 @@ import Task from './task.jsx'
 
 var a
 
+console.log(a)
+
 const TaskList = ({ tasks, updateTaskHandler, removeTaskHandler }) => {
   return (
     <ul className="todo-list">
