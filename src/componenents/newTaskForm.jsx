@@ -1,18 +1,19 @@
-import React, { useState } from "react";
-import Input from "./UI/input.jsx";
-import PropTypes from "prop-types";
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+
+import Input from './UI/input.jsx'
 
 const NewTaskForm = ({ handleCreateTask }) => {
-  const [taskDescription, setTaskDescription] = useState("");
+  const [taskDescription, setTaskDescription] = useState('')
 
   const createNewTaskHandler = (event) => {
-    event.preventDefault();
-    if (taskDescription.trim() === "") {
-      return;
+    event.preventDefault()
+    if (taskDescription.trim() === '') {
+      return
     }
-    handleCreateTask(taskDescription.trim());
-    setTaskDescription("");
-  };
+    handleCreateTask(taskDescription.trim())
+    setTaskDescription('')
+  }
 
   return (
     <header className="header">
@@ -28,15 +29,15 @@ const NewTaskForm = ({ handleCreateTask }) => {
         />
       </form>
     </header>
-  );
-};
+  )
+}
 
 NewTaskForm.propTypes = {
   handleCreateTask: PropTypes.func,
-};
+}
 
 NewTaskForm.defaultProps = {
   create: {},
-};
+}
 
-export default NewTaskForm;
+export default NewTaskForm
