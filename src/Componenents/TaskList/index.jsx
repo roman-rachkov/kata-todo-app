@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Task from './task.jsx'
+import Task from '../Task'
 
-const TaskList = ({ tasks, updateTaskHandler, removeTaskHandler }) => {
+const Index = ({ tasks, updateTaskHandler, removeTaskHandler }) => {
   return (
     <ul className="todo-list">
       {tasks.map((task) => {
@@ -15,7 +15,7 @@ const TaskList = ({ tasks, updateTaskHandler, removeTaskHandler }) => {
   )
 }
 
-TaskList.propTypes = {
+Index.propTypes = {
   tasks: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
@@ -28,10 +28,10 @@ TaskList.propTypes = {
   removeTaskHandler: PropTypes.func,
 }
 
-TaskList.defaultProps = {
+Index.defaultProps = {
   tasks: {},
   updateTaskHandler: {},
   removeTaskHandler: {},
 }
 
-export default TaskList
+export default Index

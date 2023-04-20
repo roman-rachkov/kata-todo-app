@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import Input from './UI/input.jsx'
+import Input from '../UI/Input/'
 
 const NewTaskForm = ({ handleCreateTask }) => {
   const [taskDescription, setTaskDescription] = useState('')
@@ -25,6 +25,7 @@ const NewTaskForm = ({ handleCreateTask }) => {
           autoFocus
           value={taskDescription}
           onChange={(event) => setTaskDescription(event.target.value)}
+          label={'Add new ToDo'}
           required
         />
       </form>

@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Button from './UI/button.jsx'
-import TaskFilter from './taskFilter.jsx'
+import TaskFilter from '../TaskFilter/'
+import Button from '../UI/Button/'
 
 const Footer = ({ left, filter, setFilterHandler, removeCompletedHandler }) => {
   return (

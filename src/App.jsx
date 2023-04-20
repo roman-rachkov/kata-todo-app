@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from 'react'
 
-import NewTaskForm from './componenents/newTaskForm'
-import Footer from './componenents/footer.jsx'
-import TaskList from './componenents/taskList.jsx'
+import NewTaskForm from './Componenents/NewTaskForm'
+import Footer from './Componenents/Footer'
+import TaskList from './Componenents/TaskList'
 
 function App() {
   const [tasks, setTasks] = useState([createTask('Task 1'), createTask('Task 2'), createTask('Task 3')])

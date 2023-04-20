@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { formatDistanceToNow } from 'date-fns'
 import PropTypes from 'prop-types'
 
-import ToggleCheckbox from './UI/ToggleCheckbox.jsx'
-import Input from './UI/input.jsx'
-import IconButton from './UI/icon-button.jsx'
+import ToggleCheckbox from '../UI/ToggleCheckbox/'
+import IconButton from '../UI/IconButton/'
+import Input from '../UI/Input/'
 
 const Task = ({ task, updateTaskHandler, removeTaskHandler }) => {
   const [editing, setEditing] = useState(false)
@@ -24,11 +24,17 @@ const Task = ({ task, updateTaskHandler, removeTaskHandler }) => {
   return (
     <li className={classes.join(' ')}>
       <div className="view">
-        <ToggleCheckbox checked={task.completed} onChange={handleCompleted} />
-        <label>
-          <span className="description">{task.description}</span>
-          <span className="created">created {formatDistanceToNow(task.created, { includeSeconds: true })}</span>
-        </label>
+        <ToggleCheckbox
+          checked={task.completed}
+          onChange={handleCompleted}
+          label={
+            <>
+              <span className="description">{task.description}</span>
+              <span className="created">created {formatDistanceToNow(task.created, { includeSeconds: true })}</span>
+            </>
+          }
+          id={task.id}
+        />
         <IconButton icon="icon-edit" onClick={() => setEditing(true)}></IconButton>
         <IconButton icon="icon-destroy" onClick={() => removeTaskHandler(task.id)}></IconButton>
       </div>
@@ -39,6 +45,7 @@ const Task = ({ task, updateTaskHandler, removeTaskHandler }) => {
             className="edit"
             placeholder="Editing task"
             value={taskDescription}
+            label={'Edit ToDo'}
             onChange={(event) => setDescription(event.target.value)}
           />
         </form>

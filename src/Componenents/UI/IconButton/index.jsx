@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Button from './button.jsx'
+import Button from '../Button/'
 
 const IconButton = (props) => {
   return <Button className={['icon', props.icon].join(' ')} {...props}></Button>
