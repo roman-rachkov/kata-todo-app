@@ -52,23 +52,6 @@ function App() {
     return () => cancelAnimationFrame(requestRef.current)
   }, [tasks])
 
-  // const updateAllTimers = () => {
-  //   const tmpArr = tasks.slice()
-  //
-  //   tmpArr.forEach((task) => {
-  //     if (task.timeTrack) {
-  //       task.currentTimer--
-  //     }
-  //   })
-  //
-  //   setTasks(tmpArr)
-  // }
-
-  // useEffect(() => {
-  //   const interval = setInterval(updateAllTimers, 1000)
-  //   return () => clearInterval(interval)
-  // }, [tasks])
-
   const addTask = (taskDescription, timer) => {
     console.log(taskDescription, timer)
     setTasks([...tasks, createTask(taskDescription, timer)])
