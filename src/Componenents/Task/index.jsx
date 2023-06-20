@@ -19,7 +19,20 @@ const Task = ({ task, updateTaskHandler, removeTaskHandler }) => {
     updateTaskHandler({ ...task, completed: event.target.checked })
   }
 
+  const startTaskTrack = () => {
+    updateTaskHandler({ ...task, timeTrack: true })
+  }
+
+  const stopTaskTrack = () => {
+    updateTaskHandler({ ...task, timeTrack: false })
+  }
+
   const classes = [task.completed ? 'completed' : '', editing ? 'editing' : '']
+  const formatTimer = (time) => {
+    const sec = time % 60
+    const min = parseInt(time / 60)
+    return `${min.toString().length > 1 ? min : '0' + min}:${sec.toString().length > 1 ? sec : '0' + sec}`
+  }
 
   return (
     <li className={classes.join(' ')}>
@@ -29,8 +42,16 @@ const Task = ({ task, updateTaskHandler, removeTaskHandler }) => {
           onChange={handleCompleted}
           label={
             <>
-              <span className="description">{task.description}</span>
-              <span className="created">created {formatDistanceToNow(task.created, { includeSeconds: true })}</span>
+              <span className="title">{task.description}</span>
+              <span className="description">
+                {!task.timeTrack ? (
+                  <button className="icon icon-play" onClick={startTaskTrack}></button>
+                ) : (
+                  <button className="icon icon-pause" onClick={stopTaskTrack}></button>
+                )}
+                {formatTimer(task.currentTimer)}
+              </span>
+              <span className="description">created {formatDistanceToNow(task.created, { includeSeconds: true })}</span>
             </>
           }
           id={task.id}
@@ -62,6 +83,8 @@ Task.propTypes = {
     description: PropTypes.string,
     completed: PropTypes.bool,
     created: PropTypes.instanceOf(Date),
+    timeTrack: PropTypes.bool,
+    currentTimer: PropTypes.number,
   }),
   updateTaskHandler: PropTypes.func,
   removeTaskHandler: PropTypes.func,

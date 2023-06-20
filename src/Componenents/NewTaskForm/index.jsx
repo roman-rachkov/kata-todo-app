@@ -5,20 +5,30 @@ import Input from '../UI/Input/'
 
 const NewTaskForm = ({ handleCreateTask }) => {
   const [taskDescription, setTaskDescription] = useState('')
+  const [taskMinTimer, setTaskMinTimer] = useState('')
+  const [taskSecTimer, setTaskSecTimer] = useState('')
 
   const createNewTaskHandler = (event) => {
     event.preventDefault()
     if (taskDescription.trim() === '') {
       return
     }
-    handleCreateTask(taskDescription.trim())
+
+    const min = isNaN(parseInt(taskMinTimer)) ? 0 : parseInt(taskMinTimer)
+    const sec = isNaN(parseInt(taskSecTimer)) ? 0 : parseInt(taskSecTimer)
+
+    console.log(min, sec)
+
+    handleCreateTask(taskDescription.trim(), parseInt(min) * 60 + parseInt(sec))
     setTaskDescription('')
+    setTaskMinTimer('')
+    setTaskSecTimer('')
   }
 
   return (
     <header className="header">
       <h1>todos</h1>
-      <form action="#" method="POST" onSubmit={createNewTaskHandler}>
+      <form action="#" className={'new-todo-form'} method="POST" onSubmit={createNewTaskHandler}>
         <Input
           className="new-todo"
           placeholder="What needs to be done?"
@@ -27,7 +37,32 @@ const NewTaskForm = ({ handleCreateTask }) => {
           onChange={(event) => setTaskDescription(event.target.value)}
           label={'Add new ToDo'}
           required
+          name="task-description"
+          id={'task-description'}
         />
+        <Input
+          className="new-todo-form__timer"
+          placeholder="Min"
+          label="Min"
+          autoFocus
+          value={taskMinTimer}
+          name="task-min"
+          onChange={(event) => setTaskMinTimer(event.target.value)}
+          id={'task-min'}
+        />
+        <Input
+          className="new-todo-form__timer"
+          placeholder="Sec"
+          label="Sec"
+          autoFocus
+          name="task-sec"
+          value={taskSecTimer}
+          onChange={(event) => setTaskSecTimer(event.target.value)}
+          id={'task-sec'}
+        />
+        <button type="submit" className={'hidden'}>
+          Add Task
+        </button>
       </form>
     </header>
   )

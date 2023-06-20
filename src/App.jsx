@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 
 import NewTaskForm from './Componenents/NewTaskForm'
 import Footer from './Componenents/Footer'
@@ -9,17 +9,69 @@ function App() {
 
   const [filter, setFilter] = useState(null)
 
-  function createTask(taskDescription) {
+  function createTask(taskDescription, timer = 600) {
     return {
       id: crypto.randomUUID(),
       completed: false,
       created: new Date(),
       description: taskDescription,
+      timeTrack: false,
+      currentTimer: timer,
     }
   }
 
-  const addTask = (taskDescription) => {
-    setTasks([...tasks, createTask(taskDescription)])
+  const requestRef = useRef()
+  const previousTimeRef = useRef()
+
+  const updateAllTimers = (time) => {
+    if (previousTimeRef.current === undefined) {
+      previousTimeRef.current = time
+    }
+    const deltaTime = time - previousTimeRef.current
+    if (deltaTime >= 1000) {
+      const tmpArr = tasks.slice()
+
+      tmpArr.forEach((task) => {
+        if (task.timeTrack) {
+          task.currentTimer -= parseInt(deltaTime / 1000)
+          if (task.currentTimer <= 0) {
+            task.timeTrack = false
+            alert(`Task ${task.description} time ended`)
+          }
+        }
+      })
+      setTasks(tmpArr)
+      previousTimeRef.current = time
+    }
+
+    requestRef.current = requestAnimationFrame(updateAllTimers)
+  }
+
+  useEffect(() => {
+    requestRef.current = requestAnimationFrame(updateAllTimers)
+    return () => cancelAnimationFrame(requestRef.current)
+  }, [tasks])
+
+  // const updateAllTimers = () => {
+  //   const tmpArr = tasks.slice()
+  //
+  //   tmpArr.forEach((task) => {
+  //     if (task.timeTrack) {
+  //       task.currentTimer--
+  //     }
+  //   })
+  //
+  //   setTasks(tmpArr)
+  // }
+
+  // useEffect(() => {
+  //   const interval = setInterval(updateAllTimers, 1000)
+  //   return () => clearInterval(interval)
+  // }, [tasks])
+
+  const addTask = (taskDescription, timer) => {
+    console.log(taskDescription, timer)
+    setTasks([...tasks, createTask(taskDescription, timer)])
   }
 
   const updateTask = (task) => {
