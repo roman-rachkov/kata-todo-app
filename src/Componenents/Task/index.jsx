@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import ToggleCheckbox from '../UI/ToggleCheckbox/'
 import IconButton from '../UI/IconButton/'
 import Input from '../UI/Input/'
+import Button from '../UI/Button/index.jsx'
 
 const Task = ({ task, updateTaskHandler, removeTaskHandler }) => {
   const [editing, setEditing] = useState(false)
@@ -19,19 +20,21 @@ const Task = ({ task, updateTaskHandler, removeTaskHandler }) => {
     updateTaskHandler({ ...task, completed: event.target.checked })
   }
 
-  const startTaskTrack = () => {
+  const handleStartTaskTrack = () => {
     updateTaskHandler({ ...task, timeTrack: true })
   }
 
-  const stopTaskTrack = () => {
+  const handleStopTaskTrack = () => {
     updateTaskHandler({ ...task, timeTrack: false })
   }
 
   const classes = [task.completed ? 'completed' : '', editing ? 'editing' : '']
   const formatTimer = (time) => {
-    const sec = time % 60
-    const min = parseInt(time / 60)
-    return `${min.toString().length > 1 ? min : '0' + min}:${sec.toString().length > 1 ? sec : '0' + sec}`
+    const sec = Math.abs(time % 60)
+    const min = Math.abs(parseInt(time / 60))
+    return `${time < 0 ? '-' : ''}${min.toString().length > 1 ? min : '0' + min}:${
+      sec.toString().length > 1 ? sec : '0' + sec
+    }`
   }
 
   return (
@@ -45,9 +48,9 @@ const Task = ({ task, updateTaskHandler, removeTaskHandler }) => {
               <span className="title">{task.description}</span>
               <span className="description">
                 {!task.timeTrack ? (
-                  <button className="icon icon-play" onClick={startTaskTrack}></button>
+                  <Button className="icon icon-play" onClick={handleStartTaskTrack}></Button>
                 ) : (
-                  <button className="icon icon-pause" onClick={stopTaskTrack}></button>
+                  <Button className="icon icon-pause" onClick={handleStopTaskTrack}></Button>
                 )}
                 {formatTimer(task.currentTimer)}
               </span>

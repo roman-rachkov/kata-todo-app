@@ -9,4 +9,9 @@ export default defineConfig({
     outDir: 'docs',
   },
   plugins: [react(), eslintPlugin()],
+  css: {
+    modules: {
+      localsConvention: 'camelCaseOnly',
+    },
+  },
 })

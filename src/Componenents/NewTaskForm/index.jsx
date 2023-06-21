@@ -47,8 +47,10 @@ const NewTaskForm = ({ handleCreateTask }) => {
           autoFocus
           value={taskMinTimer}
           name="task-min"
+          type="number"
           onChange={(event) => setTaskMinTimer(event.target.value)}
           id={'task-min'}
+          required
         />
         <Input
           className="new-todo-form__timer"
@@ -57,8 +59,10 @@ const NewTaskForm = ({ handleCreateTask }) => {
           autoFocus
           name="task-sec"
           value={taskSecTimer}
+          type="number"
           onChange={(event) => setTaskSecTimer(event.target.value)}
           id={'task-sec'}
+          required
         />
         <button type="submit" className={'hidden'}>
           Add Task
