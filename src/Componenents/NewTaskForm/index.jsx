@@ -50,6 +50,7 @@ const NewTaskForm = ({ handleCreateTask }) => {
           type="number"
           onChange={(event) => setTaskMinTimer(event.target.value)}
           id={'task-min'}
+          min="0"
           required
         />
         <Input
@@ -62,6 +63,8 @@ const NewTaskForm = ({ handleCreateTask }) => {
           type="number"
           onChange={(event) => setTaskSecTimer(event.target.value)}
           id={'task-sec'}
+          min="0"
+          max="60"
           required
         />
         <button type="submit" className={'hidden'}>
