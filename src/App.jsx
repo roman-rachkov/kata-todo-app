@@ -36,7 +36,7 @@ function App() {
     setTasks(tmpArr)
   }
 
-  useAnimationRequest(updateAllTimers, 1000)
+  useAnimationRequest(updateAllTimers, 1000, [tasks])
 
   const addTask = (taskDescription, timer) => {
     setTasks([...tasks, createTask(taskDescription, timer)])

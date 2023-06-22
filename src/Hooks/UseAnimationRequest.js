@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-export const useAnimationRequest = (callback, time, dependsOn = undefined) => {
+export const useAnimationRequest = (callback, time, dependsOn = []) => {
   const requestRef = useRef()
   const previousTimeRef = useRef()
 
