@@ -17,8 +17,6 @@ const NewTaskForm = ({ handleCreateTask }) => {
     const min = isNaN(parseInt(taskMinTimer)) ? 0 : parseInt(taskMinTimer)
     const sec = isNaN(parseInt(taskSecTimer)) ? 0 : parseInt(taskSecTimer)
 
-    console.log(min, sec)
-
     handleCreateTask(taskDescription.trim(), parseInt(min) * 60 + parseInt(sec))
     setTaskDescription('')
     setTaskMinTimer('')

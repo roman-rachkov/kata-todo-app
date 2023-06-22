@@ -1,5 +1,6 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 
+import { useAnimationRequest } from './Hooks/UseAnimationRequest.js'
 import NewTaskForm from './Componenents/NewTaskForm'
 import Footer from './Componenents/Footer'
 import TaskList from './Componenents/TaskList'
@@ -20,40 +21,24 @@ function App() {
     }
   }
 
-  const requestRef = useRef()
-  const previousTimeRef = useRef()
+  const updateAllTimers = (time, deltaTime) => {
+    const tmpArr = tasks.slice()
 
-  const updateAllTimers = (time) => {
-    if (previousTimeRef.current === undefined) {
-      previousTimeRef.current = time
-    }
-    const deltaTime = time - previousTimeRef.current
-    if (deltaTime >= 1000) {
-      const tmpArr = tasks.slice()
-
-      tmpArr.forEach((task) => {
-        if (task.timeTrack) {
-          task.currentTimer -= parseInt(deltaTime / 1000)
-          if (task.currentTimer <= 0) {
-            task.timeTrack = false
-            alert(`Task ${task.description} time ended`)
-          }
+    tmpArr.forEach((task) => {
+      if (task.timeTrack) {
+        task.currentTimer -= parseInt(deltaTime / 1000)
+        if (task.currentTimer <= 0) {
+          task.timeTrack = false
+          alert(`Task ${task.description} time ended`)
         }
-      })
-      setTasks(tmpArr)
-      previousTimeRef.current = time
-    }
-
-    requestRef.current = requestAnimationFrame(updateAllTimers)
+      }
+    })
+    setTasks(tmpArr)
   }
 
-  useEffect(() => {
-    requestRef.current = requestAnimationFrame(updateAllTimers)
-    return () => cancelAnimationFrame(requestRef.current)
-  }, [tasks])
+  useAnimationRequest(updateAllTimers, 1000)
 
   const addTask = (taskDescription, timer) => {
-    console.log(taskDescription, timer)
     setTasks([...tasks, createTask(taskDescription, timer)])
   }
 
