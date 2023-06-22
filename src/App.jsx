@@ -1,9 +1,9 @@
 import React, { useMemo, useState } from 'react'
 
-import { useAnimationRequest } from './Hooks/UseAnimationRequest.js'
 import NewTaskForm from './Componenents/NewTaskForm'
 import Footer from './Componenents/Footer'
 import TaskList from './Componenents/TaskList'
+import { useAnimationRequest } from './Hooks'
 
 function App() {
   const [tasks, setTasks] = useState([createTask('Task 1'), createTask('Task 2'), createTask('Task 3')])
