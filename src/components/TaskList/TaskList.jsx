@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import Task from '../Task'
 
-const Index = ({ tasks, updateTaskHandler, removeTaskHandler }) => {
+const TaskList = ({ tasks, updateTaskHandler, removeTaskHandler }) => {
   return (
     <ul className="todo-list">
       {tasks.map((task) => {
@@ -15,7 +15,7 @@ const Index = ({ tasks, updateTaskHandler, removeTaskHandler }) => {
   )
 }
 
-Index.propTypes = {
+TaskList.propTypes = {
   tasks: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
@@ -28,10 +28,10 @@ Index.propTypes = {
   removeTaskHandler: PropTypes.func,
 }
 
-Index.defaultProps = {
+TaskList.defaultProps = {
   tasks: {},
   updateTaskHandler: {},
   removeTaskHandler: {},
 }
 
-export default Index
+export default TaskList

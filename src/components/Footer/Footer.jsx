@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import TaskFilter from '../TaskFilter/'
-import Button from '../UI/Button/'
 
 const Footer = ({ left, filter, setFilterHandler, removeCompletedHandler }) => {
   return (
@@ -22,9 +21,9 @@ const Footer = ({ left, filter, setFilterHandler, removeCompletedHandler }) => {
           Completed
         </TaskFilter>
       </ul>
-      <Button className="clear-completed" onClick={removeCompletedHandler}>
+      <button type="button" className="clear-completed" onClick={removeCompletedHandler}>
         Clear completed
-      </Button>
+      </button>
     </footer>
   )
 }

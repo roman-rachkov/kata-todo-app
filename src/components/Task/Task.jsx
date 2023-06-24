@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import ToggleCheckbox from '../UI/ToggleCheckbox/'
 import IconButton from '../UI/IconButton/'
 import Input from '../UI/Input/'
-import Button from '../UI/Button/index.jsx'
 
 const Task = ({ task, updateTaskHandler, removeTaskHandler }) => {
   const [editing, setEditing] = useState(false)
@@ -48,9 +47,9 @@ const Task = ({ task, updateTaskHandler, removeTaskHandler }) => {
               <span className="title">{task.description}</span>
               <span className="description">
                 {!task.timeTrack ? (
-                  <Button className="icon icon-play" onClick={handleStartTaskTrack}></Button>
+                  <IconButton icon="icon-play" onClick={handleStartTaskTrack}></IconButton>
                 ) : (
-                  <Button className="icon icon-pause" onClick={handleStopTaskTrack}></Button>
+                  <IconButton icon="icon-pause" onClick={handleStopTaskTrack}></IconButton>
                 )}
                 {formatTimer(task.currentTimer)}
               </span>
@@ -70,6 +69,7 @@ const Task = ({ task, updateTaskHandler, removeTaskHandler }) => {
             placeholder="Editing task"
             value={taskDescription}
             label={'Edit ToDo'}
+            autoFocus
             onChange={(event) => setDescription(event.target.value)}
           />
         </form>

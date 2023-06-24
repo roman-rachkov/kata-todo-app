@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import classes from './input.module.css'
+import classes from './Input.module.css'
 
 const Input = ({ id, label, showLabel, ...props }) => {
   return (

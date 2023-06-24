@@ -1,26 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Index = ({ changeFilterHandler, selected, children }) => {
+const TaskFilter = ({ changeFilterHandler, selected, children }) => {
   return (
     <li>
-      <button className={selected ? 'selected' : ''} onClick={() => changeFilterHandler(null)}>
+      <button type="button" className={selected ? 'selected' : ''} onClick={() => changeFilterHandler(null)}>
         {children}
       </button>
     </li>
   )
 }
 
-Index.propType = {
+TaskFilter.propType = {
   changeFilterHandler: PropTypes.func,
   selected: PropTypes.bool,
   children: PropTypes.string,
 }
 
-Index.defaultProps = {
+TaskFilter.defaultProps = {
   changeFilterHandler: {},
   selected: false,
   children: 'All',
 }
 
-export default Index
+export default TaskFilter

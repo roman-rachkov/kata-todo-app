@@ -42,7 +42,6 @@ const NewTaskForm = ({ handleCreateTask }) => {
           className="new-todo-form__timer"
           placeholder="Min"
           label="Min"
-          autoFocus
           value={taskMinTimer}
           name="task-min"
           type="number"
@@ -55,7 +54,6 @@ const NewTaskForm = ({ handleCreateTask }) => {
           className="new-todo-form__timer"
           placeholder="Sec"
           label="Sec"
-          autoFocus
           name="task-sec"
           value={taskSecTimer}
           type="number"
